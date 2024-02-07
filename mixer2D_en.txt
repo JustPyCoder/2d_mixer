@@ -109,7 +109,7 @@ Shifting the entire screen
 	cords = [[0,5],[1,5],[2,5],[3,5],[2,4],[2,6]]
 	
 	main_screen = Ecran([16, 9],'..')
-	main_screen.plase_ecran()
+	main_screen.plaran()
 	
 	left = Logics(cords, [16,9])
 	
