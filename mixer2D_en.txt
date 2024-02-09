@@ -1,53 +1,52 @@
-Start working with mixeer2D. Initialization and screen display in the command line.
-	
-	First, we need to create an object, for example, main_screen.
-	Then we assign the Ecran class to the object and pass a list with the screen dimensions, for example, [16, 9] (values start from 1) (values can be changed according to your 	needs, but here we will use these values) in characters, for example, '..'.
-	We've only passed the parameters; now we need to create the screen itself using the plase_screen() method.
-	The screen is created in memory; to see it, we use the print_screen() method. Example code below.
+Beginning work with mixeer2D. Initialization and display of the screen in the command line.
 
+	To start, we need to create an object, for example, main_screen.
+	Then we assign the Screen class to the object and pass a list of screen dimensions, for example, [16, 9] (values are entered starting from 1) (values can be changed according to your 	preferences, but here we will use this value) and a symbol, for example, '..'.
+	screen_variable_name = Screen(Coordinates, symbol)
+	Here we only passed the parameters, now we need to create the screen itself using the create_a_screen() method.
+	The screen is created in memory, to see it, we use the display_screen() method. Example code below.
+	
 	----------
 
 	from mixer2D import*
 	
 	main_screen = Screen([16, 9],'..')
-	main_screen.place_screen()
+	main_screen.create_a_screen()
 	
-	main_screen.print_screen()
-
-	----------
-
-	................................
-	................................
-	................................
-	................................
-	................................
-	................................
-	................................
-	................................
-	................................
+	main_screen.display_screen()
 
 	----------
 	
-Drawing characters on the screen according to coordinates.
-	
-	Suppose we have a square list of coordinates in the variable cords. To display it, we need to use the place_sign() function.
-	We pass coordinates and a symbol to it place_sign(cords, '##'). Here counting starts from zero.
-	
+	................................
+	................................
+	................................
+	................................
+	................................
+	................................
+	................................
+	................................
+	................................
+
 	----------
+
+Drawing symbols on the screen according to coordinates.
 	
+	Suppose we have a square list of coordinates in the variable cords. To display it, we need to use the print_symbols() function.
+	We pass the coordinates and the symbol to it print_symbols(coordinates, symbol). Here counting starts from zero.
+
 	from mixer2D import*
 	
 	cords = [[5,1],[4,6],[9,8],[1,5],[0,0],[15,8]]
 	
 	main_screen = Screen([16, 9],'..')
-	main_screen.place_screen()
+	main_screen.create_a_screen()
 	
-	main_screen.place_sign(cords, '##')
+	main_screen.print_symbols(cords, '##')
 	
-	main_screen.print_screen()
+	main_screen.display_screen()
 
 	----------
-	
+
 	##..............................
 	..........##....................
 	................................
@@ -59,26 +58,23 @@ Drawing characters on the screen according to coordinates.
 	..................##..........##
 
 	----------
-	
-	But specifying coordinates for some huge figure is not very convenient. Therefore, to define large figures, we use the Figure.rectangle() function, which returns coordinate values for filling a rectangle.
-	You need to pass lists of coordinates for the top-left and bottom-right corners to cover the entire space between them.
-	Counting starts from 0. Also, the starting value should be less than the end value start_pos[0] > end_pos[0] and start_pos[1] > end_pos[1].
-	This code will draw a line down the center.
-	
+
+	But specifying coordinates for some huge figure is not very convenient. Therefore, to define large figures, we use the Figure.rectangle() function, which returns the coordinate values for filling the rectangle.
+	It needs to be passed lists of coordinates of the top left and bottom right points so that the entire space between them is filled.
+	Counting starts from 0. Also, the starting value must be less than the final start_pos[0] > end_pos[0] and start_pos[1] > end_pos[1].
+
 	----------
-	
+
 	from mixer2D import*
 	
 	main_screen = Screen([16, 9],'..')
-	main_screen.place_screen()
+	main_screen.create_a_screen()
 	
-	cords_ground = Figure.rectangle([0,3], [15,5])
+	cords_groun = Figure.rectangle([0,3], [15,5])
 	
-	print(cords_ground)
+	main_screen.print_symbols(cords_groun, '##')
 	
-	main_screen.place_sign(cords_ground, '##')
-	
-	main_screen.print_screen()
+	main_screen.display_screen()
 
 	----------
 
@@ -94,12 +90,11 @@ Drawing characters on the screen according to coordinates.
 
 	----------
 
-Shifting the entire screen
+Shifting the entire screen.
 	
-	We create an object, then assign the Logics class to it and pass a list of coordinates for shifting as well as the dimensions of our display. Then when using the 	logical_right() method,
-	our coordinates will shift by 1 to the right. This method returns them.
+	We create an object, then assign the Logics class to it and pass a list of coordinates for shifting as well as the dimensions of our display. Then when using the logical_right() 	method, our coordinates will shift 1 to the right. This method returns them.
 	Example of using Logics()
-
+	
 	----------
 
 	import os
@@ -108,15 +103,118 @@ Shifting the entire screen
 	
 	cords = [[0,5],[1,5],[2,5],[3,5],[2,4],[2,6]]
 	
-	main_screen = Ecran([16, 9],'..')
-	main_screen.plaran()
+	main_screen = Screen([16, 9],'..')
+	main_screen.create_a_screen()
 	
 	left = Logics(cords, [16,9])
 	
 	while True:
-		os.system('cls') 
-		main_screen.plase_ecran()
-		main_screen.plase_sign(cords, '**')
-		main_screen.print_ecran()
-		time.sleep(0.2)
-		cords = left.logical_right()
+	    os.system('cls') 
+	    main_screen.create_a_screen()
+	    main_screen.print_symbols(cords, '**')
+	    main_screen.display_screen()
+	    time.sleep(0.2)
+	    cords = left.logical_right()
+
+	----------
+
+Rotation of the figure at a certain angle.
+	
+	There are situations when it is necessary to rotate the figure. For such situations, there is the turn() method of the Figure class.
+	The turn() method takes the figure and the degrees to rotate it, and returns the new coordinates, for example cords_symvols = Figure.turn(figure, angle).
+	
+	The first screen is a regular figure, and the second is a figure at a 45° angle.
+	
+	from mixer2D import*
+	
+	main_screen = Screen([16*2,9*2],'::')
+	main_screen.create_a_screen()
+	
+	cords_symvols_start = Figure.rectangle([10,7],[20,12])
+	cords_symvols = Figure.turn(cords_symvols_start, 45)
+	
+	main_screen.print_symbols(cords_symvols_start, "**")
+	main_screen.display_screen()
+	print(0)
+	main_screen.create_a_screen()
+	main_screen.print_symbols(cords_symvols, "**")
+	main_screen.display_screen()
+
+	----------
+	1
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::**********************::::::::::::::::::::::
+	::::::::::::::::::::**********************::::::::::::::::::::::
+	::::::::::::::::::::**********************::::::::::::::::::::::
+	::::::::::::::::::::**********************::::::::::::::::::::::
+	::::::::::::::::::::**********************::::::::::::::::::::::
+	::::::::::::::::::::**********************::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	2
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::**::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::****::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::************::::::::::::::::::::::::::::::
+	::::::::::::::::::::::****::******::::::::::::::::::::::::::::::
+	::::::::::::::::::::****::****::****::::::::::::::::::::::::::::
+	::::::::::::::::::::::******************::::::::::::::::::::::::
+	::::::::::::::::::::::::**::******::****::::::::::::::::::::::::
+	::::::::::::::::::::::::::******************::::::::::::::::::::
+	::::::::::::::::::::::::::::**::****::****::::::::::::::::::::::
+	::::::::::::::::::::::::::::::****::****::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::********::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::**::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Creating a circle.
+	
+	The ability to create a circle may be necessary in some cases. It can be created using the circle() method of the same Figure class.
+	The method takes the radius of the circle and its center coordinates. circle(radius, coordinates).
+	Example below.
+
+	----------
+	
+	from mixer2D import*
+	
+	main_screen = Screen([16*2,9*2],'::')
+	main_screen.create_a_screen()
+	
+	test = Figure.circle(4, [15,8])
+	
+	main_screen.print_symbols(test, "██")
+	main_screen.display_screen()
+
+	----------
+
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::██████████::::::::::::::::::::::::::::
+	::::::::::::::::::::::::████::::::████::::::::::::::::::::::::::
+	::::::::::::::::::::::████::::::::::████::::::::::::::::::::::::
+	::::::::::::::::::::::██::::::::::::::██::::::::::::::::::::::::
+	::::::::::::::::::::::██::::::::::::::██::::::::::::::::::::::::
+	::::::::::::::::::::::██::::::::::::::██::::::::::::::::::::::::
+	::::::::::::::::::::::████::::::::::████::::::::::::::::::::::::
+	::::::::::::::::::::::::████::::::████::::::::::::::::::::::::::
+	::::::::::::::::::::::::::██████████::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
