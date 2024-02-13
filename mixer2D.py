@@ -26,6 +26,13 @@ class Screen:
 
 
 class Figure: 
+    def clear(self, start_cords):
+        end_cords = []
+        for i in range(len(start_cords)):
+            if start_cords[i] not in end_cords:
+                end_cords.append(start_cords[i])
+        return end_cords
+
     def rectangle(self, start_pos, end_pos):
         rectangle = []
         save = start_pos[0]
@@ -45,50 +52,51 @@ class Figure:
             return rectangle 
 
     def turn(self, cords_symvols, angle):
-        end_cords = []
+        cords = []
         angle/= 57.8769231
         center = [ round((cords_symvols[0][0]+cords_symvols[-1][0])/2), round((cords_symvols[0][1]+cords_symvols[-1][1])/2)]
         for i in range(len(cords_symvols)):
             XY = [cords_symvols[i][0]-center[0],cords_symvols[i][1]-center[1]]
             X = round(float((XY[0]*math.cos(angle)) - (XY[1]*math.sin(angle))))+ center[0]
             Y = round(float((XY[0]*math.sin(angle)) + (XY[1]*math.cos(angle))))+ center[1]
-            end_cords += [[X,Y]]
+            cords += [[X,Y]]
+        end_cords = self.clear(cords)
         return end_cords
 
     def circle(self, radius, cords_circle):
-        end_cords = []
         cords = []
         for i in range(360):
             cords+= [[round((radius*math.cos(i))+cords_circle[0]), round((radius*math.sin(i))+cords_circle[1])]]
-        for i in range(len(cords)):
-            if cords[i] not in end_cords:
-                end_cords.append(cords[i])
+        end_cords = self.clear(cords)
         return end_cords
 
     def circle_filled(self, radius_start, cords_circle):
         cords = []
-        end_cords = []
         for radius in range(radius_start):
             for i in range(360):
                 cords+= [[round((radius*math.cos(i))+cords_circle[0]), round((radius*math.sin(i))+cords_circle[1])]]
-        for i in range(len(cords)):
-            if cords[i] not in end_cords:
-                end_cords.append(cords[i])
+        end_cords = self.clear(cords)
         return end_cords
 
     def vector(self, start_pos, end_pos):
         cords_vector = [end_pos[0]-start_pos[0], end_pos[1]-start_pos[1]] 
         сord_per = 0.01
         end_cords = []
-        pure_cords = []
         while сord_per <= 1:
             end_cords += [[round(start_pos[0]+сord_per*cords_vector[0]),round(start_pos[1]+сord_per*cords_vector[1])]]
             сord_per += 0.01
-            print(end_cords[-1], " ", сord_per)
-        for i in range(len(end_cords)):
-            if end_cords[i] not in pure_cords:
-                pure_cords.append(end_cords[i])
+        pure_cords = self.clear(end_cords)
         return pure_cords
+
+    def triangle(self, pos_A, pos_B, pos_C):
+        end_cords = []
+        res_1 = self.vector(pos_A, pos_B)
+        res_2 = self.vector(pos_B, pos_C)
+        res_3 = self.vector(pos_C, pos_A)
+        cords = res_1 + res_2 + res_3
+        end_cords = self.clear(cords)
+        return end_cords
+    
 
 class Logics:
     def __init__(self, data, display):
