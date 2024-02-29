@@ -87,16 +87,13 @@ class Figure:
             сord_per += 0.01
         pure_cords = self.clear(end_cords)
         return pure_cords
-
-    def triangle(self, pos_A, pos_B, pos_C):
-        end_cords = []
-        res_1 = self.vector(pos_A, pos_B)
-        res_2 = self.vector(pos_B, pos_C)
-        res_3 = self.vector(pos_C, pos_A)
-        cords = res_1 + res_2 + res_3
+    
+    def new(self, cords_start):
+        cords = []
+        for i in range(len(cords_start)):
+            cords += self.vector(cords_start[i-1],cords_start[i])
         end_cords = self.clear(cords)
         return end_cords
-    
 
 class Logics:
     def __init__(self, data, display):
