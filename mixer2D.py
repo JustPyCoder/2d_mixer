@@ -33,6 +33,35 @@ class Figure:
                 end_cords.append(start_cords[i])
         return end_cords
 
+    def filled(self, data):
+        end = []
+        data_X = data.copy()
+        prom_data = list()
+
+        data_num_Y = self.clear([data[i][1] for i in range(len(data))])
+        data_num_Y.sort()
+    
+        for i in range(len(data)):
+            for I in range(len(data)-i-1):
+                if data_X[I][0] > data_X[I+1][0]:
+                    data_X[I], data_X[I+1] = data_X[I+1], data_X[I] 
+
+        for i in range(len(data_num_Y)):
+            prom_data += [[]]
+            for I in range(len(data_X)):
+                if data_X[I][1] == data_num_Y[i] :
+                    prom_data[i] += [[data_X[I]]]
+    
+        prom_data = self.clear(prom_data)
+    
+        for i in range(len(prom_data)):
+            try:
+                end += self.rectangle([prom_data[i][0][0][0],prom_data[i][0][0][1]],[prom_data[i][-1][0][0],prom_data[i][-1][0][1]])
+            except:
+                pass
+    
+        return self.clear(end)
+
     def rectangle(self, start_pos, end_pos):
         rectangle = []
         save = start_pos[0]
@@ -70,14 +99,6 @@ class Figure:
         end_cords = self.clear(cords)
         return end_cords
 
-    def circle_filled(self, radius_start, cords_circle):
-        cords = []
-        for radius in range(radius_start):
-            for i in range(360):
-                cords+= [[round((radius*math.cos(i))+cords_circle[0]), round((radius*math.sin(i))+cords_circle[1])]]
-        end_cords = self.clear(cords)
-        return end_cords
-
     def vector(self, start_pos, end_pos):
         cords_vector = [end_pos[0]-start_pos[0], end_pos[1]-start_pos[1]] 
         сord_per = 0.01
@@ -94,6 +115,13 @@ class Figure:
             cords += self.vector(cords_start[i-1],cords_start[i])
         end_cords = self.clear(cords)
         return end_cords
+
+    def new_filled(self, start_cords):
+        return self.filled(self.new(start_cords))
+
+    def circle_filled(self, radius_start, cords_circle):
+        return self.filled(self.circle(radius_start, cords_circle))
+
 
 class Logics:
     def __init__(self, data, display):
