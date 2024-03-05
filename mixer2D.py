@@ -33,8 +33,8 @@ class Figure:
                 end_cords.append(start_cords[i])
         return end_cords
 
-    def filled(self, data):
-        end = []
+    def fill(self, data):
+        end = list()
         data_X = data.copy()
         prom_data = list()
 
@@ -56,11 +56,12 @@ class Figure:
     
         for i in range(len(prom_data)):
             try:
-                end += self.rectangle([prom_data[i][0][0][0],prom_data[i][0][0][1]],[prom_data[i][-1][0][0],prom_data[i][-1][0][1]])
+                for i in self.rectangle([prom_data[i][0][0][0],prom_data[i][0][0][1]],[prom_data[i][-1][0][0],prom_data[i][-1][0][1]]) :
+                    if i not in end:
+                        end.append(i)
             except:
                 pass
-    
-        return self.clear(end)
+        return end
 
     def rectangle(self, start_pos, end_pos):
         rectangle = []
@@ -88,39 +89,44 @@ class Figure:
             XY = [cords_symvols[i][0]-center[0],cords_symvols[i][1]-center[1]]
             X = round(float((XY[0]*math.cos(angle)) - (XY[1]*math.sin(angle))))+ center[0]
             Y = round(float((XY[0]*math.sin(angle)) + (XY[1]*math.cos(angle))))+ center[1]
-            cords += [[X,Y]]
-        end_cords = self.clear(cords)
-        return end_cords
+            if [X,Y] not in cords:
+                cords += [[X,Y]]
+        return cords
 
     def circle(self, radius, cords_circle):
-        cords = []
+        cords = list()
+        end_cords = list()
         for i in range(360):
-            cords+= [[round((radius*math.cos(i))+cords_circle[0]), round((radius*math.sin(i))+cords_circle[1])]]
-        end_cords = self.clear(cords)
+            cords = [[round((radius*math.cos(i))+cords_circle[0]), round((radius*math.sin(i))+cords_circle[1])]]
+            if cords[0] not in end_cords:
+                end_cords += cords
         return end_cords
 
     def vector(self, start_pos, end_pos):
         cords_vector = [end_pos[0]-start_pos[0], end_pos[1]-start_pos[1]] 
-        сord_per = 0.01
-        end_cords = []
+        сord_per = 0.0
+        prom_cords = list()
+        end_cords = list()
         while сord_per <= 1:
-            end_cords += [[round(start_pos[0]+сord_per*cords_vector[0]),round(start_pos[1]+сord_per*cords_vector[1])]]
+            prom_cords = [[round(start_pos[0]+сord_per*cords_vector[0]),round(start_pos[1]+сord_per*cords_vector[1])]]
             сord_per += 0.01
-        pure_cords = self.clear(end_cords)
-        return pure_cords
+            if prom_cords[0] not in end_cords:
+                end_cords += prom_cords
+        return end_cords
     
     def new(self, cords_start):
-        cords = []
+        end_cords = list()
         for i in range(len(cords_start)):
-            cords += self.vector(cords_start[i-1],cords_start[i])
-        end_cords = self.clear(cords)
+            for i in self.vector(cords_start[i-1],cords_start[i]):
+                if i not in end_cords:
+                    end_cords.append(i)
         return end_cords
 
     def new_filled(self, start_cords):
-        return self.filled(self.new(start_cords))
+        return self.fill(self.new(start_cords))
 
     def circle_filled(self, radius_start, cords_circle):
-        return self.filled(self.circle(radius_start, cords_circle))
+        return self.fill(self.circle(radius_start, cords_circle))
 
 
 class Logics:
