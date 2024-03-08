@@ -1,16 +1,22 @@
+from copy import deepcopy
 import math
+
 
 class Screen:
     def __init__(self, display, sign):
         self.screen = list()
+        self.screen_data = list()
         self.string = ''
         self.display = display
         self.sign = sign
 
     def create_a_screen(self):
-        self.screen = list()
         for _ in range(int(self.display[0])):
-            self.screen += [[str(self.sign)]*int(self.display[1])]
+            self.screen_data += [[str(self.sign)]*int(self.display[1])]
+        self.clear_a_screen()
+
+    def clear_a_screen(self):
+        self.screen = deepcopy(self.screen_data)
 
     def display_screen(self):
         for I in range(int(self.display[1])):

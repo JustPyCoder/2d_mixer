@@ -111,7 +111,7 @@ Shifting the entire screen.
 	
 	while True:
 		os.system('cls') 
-		main_screen.create_a_screen()
+		main_screen.clear_a_screen()
 		main_screen.print_symbols(cords, '██')
 		main_screen.display_screen()
 		time.sleep(0.2)
