@@ -123,9 +123,9 @@ class Figure:
     def new(self, cords_start):
         end_cords = list()
         for i in range(len(cords_start)):
-            for i in self.vector(cords_start[i-1],cords_start[i]):
-                if i not in end_cords:
-                    end_cords.append(i)
+            for I in self.vector(cords_start[i-1],cords_start[i]):
+                if I not in end_cords:
+                    end_cords.append(I)
         return end_cords
 
     def new_filled(self, start_cords):
