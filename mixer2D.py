@@ -6,7 +6,6 @@ class Screen:
     def __init__(self, display, sign):
         self.screen = list()
         self.screen_data = list()
-        self.string = ''
         self.display = display
         self.sign = sign
 
@@ -21,9 +20,8 @@ class Screen:
     def display_screen(self):
         for I in range(int(self.display[1])):
             for i in range(int(self.display[0])):
-                self.string += self.screen[i][I]
-            print(self.string)
-            self.string = ''
+                print(self.screen[i][I],end="")
+            print(end="\n")
 
     def print_symbols(self, list_X_Y, sign):
         for i in range(len(list_X_Y)):
