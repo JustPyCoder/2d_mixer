@@ -87,10 +87,10 @@ class Figure:
                 start_pos[1] += 1
             return rectangle 
 
-    def turn(self, cords_symvols, angle):
+    def turn(self, cords_symvols, angle,center=0):
         cords = []
         angle/= 57.8769231
-        center = [ round((cords_symvols[0][0]+cords_symvols[-1][0])/2), round((cords_symvols[0][1]+cords_symvols[-1][1])/2)]
+        if center == 0:center = [ round((cords_symvols[0][0]+cords_symvols[-1][0])/2), round((cords_symvols[0][1]+cords_symvols[-1][1])/2)]
         for i in range(len(cords_symvols)):
             XY = [cords_symvols[i][0]-center[0],cords_symvols[i][1]-center[1]]
             X = round(float((XY[0]*math.cos(angle)) - (XY[1]*math.sin(angle))))+ center[0]
