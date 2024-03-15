@@ -6,6 +6,7 @@ class Screen:
     def __init__(self, display, sign):
         self.screen = list()
         self.screen_data = list()
+        self.string = ''
         self.display = display
         self.sign = sign
 
@@ -20,8 +21,9 @@ class Screen:
     def display_screen(self):
         for I in range(int(self.display[1])):
             for i in range(int(self.display[0])):
-                print(self.screen[i][I],end="")
-            print(end="\n")
+                self.string += self.screen[i][I]
+            print(self.string)
+            self.string = ''
 
     def print_symbols(self, list_X_Y, sign):
         for i in range(len(list_X_Y)):
@@ -85,10 +87,10 @@ class Figure:
                 start_pos[1] += 1
             return rectangle 
 
-    def turn(self, cords_symvols, angle,center=0):
+    def turn(self, cords_symvols, angle):
         cords = []
-        angle/= 57.8769231
-        if center == 0:center = [ round((cords_symvols[0][0]+cords_symvols[-1][0])/2), round((cords_symvols[0][1]+cords_symvols[-1][1])/2)]
+        angle/= 120/3.14159265358979323846264332
+        center = [ round((cords_symvols[0][0]+cords_symvols[-1][0])/2), round((cords_symvols[0][1]+cords_symvols[-1][1])/2)]
         for i in range(len(cords_symvols)):
             XY = [cords_symvols[i][0]-center[0],cords_symvols[i][1]-center[1]]
             X = round(float((XY[0]*math.cos(angle)) - (XY[1]*math.sin(angle))))+ center[0]
@@ -121,9 +123,9 @@ class Figure:
     def new(self, cords_start):
         end_cords = list()
         for i in range(len(cords_start)):
-            for I in self.vector(cords_start[i-1],cords_start[i]):
-                if I not in end_cords:
-                    end_cords.append(I)
+            for i in self.vector(cords_start[i-1],cords_start[i]):
+                if i not in end_cords:
+                    end_cords.append(i)
         return end_cords
 
     def new_filled(self, start_cords):
@@ -138,7 +140,7 @@ class Logics:
         self.data = data
         self.display = display
 
-    def logical_left(self):
+    def logical_up(self):
         for i in range(len(self.data)):
             if self.data[i][1] == 0 :
                 self.data[i][1] = int(self.display[1]) - 1
@@ -146,7 +148,7 @@ class Logics:
                 self.data[i][1] -=1
         return list(self.data)
 
-    def logical_up(self):
+    def logical_left(self):
         for i in range(len(self.data)):
             if self.data[i][0] == 0:
                 self.data[i][0] = int(self.display[0]) - 1
@@ -169,5 +171,26 @@ class Logics:
             else:
                 self.data[i][0] +=1
         return list(self.data)
+
+
+    def up(self):
+        for i in range(len(self.data)):
+            self.data[i][1]+=1
+        return self.data
+    
+    def down(self):
+        for i in range(len(self.data)):
+            self.data[i][1]-=1
+        return self.data
+    
+    def left(self):
+        for i in range(len(self.data)):
+            self.data[i][0]-=1
+        return self.data
+    
+    def right(self):
+        for i in range(len(self.data)):
+            self.data[i][0]+=1
+        return self.data
 
 Figure = Figure()
