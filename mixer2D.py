@@ -6,29 +6,25 @@ class Screen:
     def __init__(self, display, sign):
         self.screen = list()
         self.screen_data = list()
-        self.string = ''
         self.display = display
         self.sign = sign
 
     def create_a_screen(self):
-        for _ in range(int(self.display[0])):
-            self.screen_data += [[str(self.sign)]*int(self.display[1])]
+        for _ in range(int(self.display[1])):
+            self.screen_data += [[str(self.sign)]*int(self.display[0])]
         self.clear_a_screen()
 
     def clear_a_screen(self):
         self.screen = deepcopy(self.screen_data)
 
     def display_screen(self):
-        for I in range(int(self.display[1])):
-            for i in range(int(self.display[0])):
-                self.string += self.screen[i][I]
-            print(self.string)
-            self.string = ''
+        list_string = [''.join(i) for i in self.screen]
+        print('\n'.join(list_string),)
 
     def print_symbols(self, list_X_Y, sign):
         for i in range(len(list_X_Y)):
             if list_X_Y[i][0] < self.display[0] and list_X_Y[i][0] >= 0 and list_X_Y[i][1] < self.display[1] and list_X_Y[i][1] >= 0:
-                self.screen[list_X_Y[i][0]][list_X_Y[i][1]] = str(sign)
+                self.screen[list_X_Y[i][1]][list_X_Y[i][0]] = str(sign)
 
 
 class Figure: 
@@ -136,61 +132,59 @@ class Figure:
 
 
 class Logics:
-    def __init__(self, data, display):
-        self.data = data
+    def __init__(self, display):
         self.display = display
 
-    def logical_up(self):
-        for i in range(len(self.data)):
-            if self.data[i][1] == 0 :
-                self.data[i][1] = int(self.display[1]) - 1
+    def logical_up(self,data,zdvig=1):
+        for i in range(len(data)):
+            if data[i][1] == 0 :
+                data[i][1] = int(self.display[1]) - zdvig
             else:
-                self.data[i][1] -=1
-        return list(self.data)
+                data[i][1] -=zdvig
+        return data
 
-    def logical_left(self):
-        for i in range(len(self.data)):
-            if self.data[i][0] == 0:
-                self.data[i][0] = int(self.display[0]) - 1
+    def logical_left(self,data,zdvig=1):
+        for i in range(len(data)):
+            if data[i][0] == 0:
+                data[i][0] = int(self.display[0]) - zdvig
             else:
-                self.data[i][0] -=1
-        return list(self.data)
+                data[i][0] -=zdvig
+        return data
 
-    def logical_down(self):
-        for i in range(len(self.data)):
-            if self.data[i][1] == int(self.display[1]) - 1:
-                self.data[i][1] = 0
+    def logical_down(self,data,zdvig=1):
+        for i in range(len(data)):
+            if data[i][1] == int(self.display[1]) - zdvig:
+                data[i][1] = 0
             else:
-                self.data[i][1] +=1
-        return list(self.data)
+                data[i][1] +=zdvig
+        return data
 
-    def logical_right(self):
-        for i in range(len(self.data)):
-            if self.data[i][0] == int(self.display[0]) - 1:
-                self.data[i][0] = 0
+    def logical_right(self,data,zdvig=1):
+        for i in range(len(data)):
+            if data[i][0] == int(self.display[0]) - zdvig:
+                data[i][0] = 0
             else:
-                self.data[i][0] +=1
-        return list(self.data)
+                data[i][0] +=zdvig
+        return data
 
-
-    def up(self):
-        for i in range(len(self.data)):
-            self.data[i][1]+=1
-        return self.data
+    def up(self,data,zdvig=1):
+        for i in range(len(data)):
+            data[i][1]+=zdvig
+        return data
     
-    def down(self):
-        for i in range(len(self.data)):
-            self.data[i][1]-=1
-        return self.data
+    def down(self,data,zdvig=1):
+        for i in range(len(data)):
+            data[i][1]-=zdvig
+        return data
     
-    def left(self):
-        for i in range(len(self.data)):
-            self.data[i][0]-=1
-        return self.data
+    def left(self,data,zdvig=1):
+        for i in range(len(data)):
+            data[i][0]-=zdvig
+        return data
     
-    def right(self):
-        for i in range(len(self.data)):
-            self.data[i][0]+=1
-        return self.data
+    def right(self,data,zdvig=1):
+        for i in range(len(data)):
+            data[i][0]+=zdvig
+        return data
 
 Figure = Figure()
