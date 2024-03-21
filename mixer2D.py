@@ -83,10 +83,9 @@ class Figure:
                 start_pos[1] += 1
             return rectangle 
 
-    def turn(self, cords_symvols, angle):
+    def turn(self, cords_symvols, angle, center=[0,0]):
         cords = []
-        angle/= 120/3.14159265358979323846264332
-        center = [ round((cords_symvols[0][0]+cords_symvols[-1][0])/2), round((cords_symvols[0][1]+cords_symvols[-1][1])/2)]
+        angle/= 180/math.pi
         for i in range(len(cords_symvols)):
             XY = [cords_symvols[i][0]-center[0],cords_symvols[i][1]-center[1]]
             X = round(float((XY[0]*math.cos(angle)) - (XY[1]*math.sin(angle))))+ center[0]
@@ -95,10 +94,11 @@ class Figure:
                 cords += [[X,Y]]
         return cords
 
-    def circle(self, radius, cords_circle):
-        cords = list()
+    def circle(self, radius, cords_circle, angle=360):
         end_cords = list()
-        for i in range(360):
+        radian = (180/math.pi)
+        for i in range(angle):
+            i/=radian
             cords = [[round((radius*math.cos(i))+cords_circle[0]), round((radius*math.sin(i))+cords_circle[1])]]
             if cords[0] not in end_cords:
                 end_cords += cords
@@ -127,8 +127,9 @@ class Figure:
     def new_filled(self, start_cords):
         return self.fill(self.new(start_cords))
 
-    def circle_filled(self, radius_start, cords_circle):
-        return self.fill(self.circle(radius_start, cords_circle))
+    def circle_filled(self, radius_start, cords_circle,angle):
+        circle = self.circle(radius_start, cords_circle,angle)
+        return self.fill(self.vector(cords_circle,circle[0]) + circle + self.vector(cords_circle,circle[-1]))
 
 
 class Logics:
