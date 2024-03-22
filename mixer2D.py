@@ -103,18 +103,19 @@ class Figure:
             if cords[0] not in end_cords:
                 end_cords += cords
         return end_cords
+        
+    def vector(self, start_cords, end_cords):
+        vector_cord = [end_cords[0]-start_cords[0],end_cords[1]-start_cords[1]] 
+        vector_size = round(math.sqrt(vector_cord[0]**2+vector_cord[1]**2))
+        mnog = 1/vector_size
+        vector_end = list()
+        for i in range(vector_size):
+            prom_mnog= mnog*i
+            vector_prom=[[round(start_cords[0]+vector_cord[0]*prom_mnog),round(start_cords[1]+vector_cord[1]*prom_mnog)]]
+            if vector_end not in vector_prom:
+                vector_end+=vector_prom
+        return vector_end
 
-    def vector(self, start_pos, end_pos):
-        cords_vector = [end_pos[0]-start_pos[0], end_pos[1]-start_pos[1]] 
-        сord_per = 0.0
-        prom_cords = list()
-        end_cords = list()
-        while сord_per <= 1:
-            prom_cords = [[round(start_pos[0]+сord_per*cords_vector[0]),round(start_pos[1]+сord_per*cords_vector[1])]]
-            сord_per += 0.01
-            if prom_cords[0] not in end_cords:
-                end_cords += prom_cords
-        return end_cords
     
     def new(self, cords_start):
         end_cords = list()
