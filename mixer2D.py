@@ -19,7 +19,11 @@ class Screen:
 
     def display_screen(self):
         list_string = [''.join(i) for i in self.screen]
-        print('\n'.join(list_string),)
+        print('\n'.join(list_string))
+
+    def display_screen_string(self):
+        list_string = [''.join(i) for i in self.screen]
+        print(''.join(list_string))
 
     def print_symbols(self, list_X_Y, sign):
         for i in range(len(list_X_Y)):
