@@ -173,12 +173,12 @@ class Logics:
                 data[i][0] +=zdvig
         return data
 
-    def up(self,data,zdvig=1):
+    def down(self,data,zdvig=1):
         for i in range(len(data)):
             data[i][1]+=zdvig
         return data
     
-    def down(self,data,zdvig=1):
+    def up(self,data,zdvig=1):
         for i in range(len(data)):
             data[i][1]-=zdvig
         return data
