@@ -142,55 +142,78 @@ class Logics:
         self.display = display
 
     def logical_up(self,data,zdvig=1):
-        for i in range(len(data)):
-            if data[i][1] == 0 :
-                data[i][1] = int(self.display[1]) - zdvig
+        for item in data:
+            if item[1] - zdvig < 0 :
+                item[1] = item[1]-zdvig+self.display[1]
             else:
-                data[i][1] -=zdvig
+                item[1] -=zdvig
         return data
 
     def logical_left(self,data,zdvig=1):
-        for i in range(len(data)):
-            if data[i][0] == 0:
-                data[i][0] = int(self.display[0]) - zdvig
+        for item in data:
+            if item[0] - zdvig < 0:
+                item[0] = item[0]-zdvig+self.display[0]
             else:
-                data[i][0] -=zdvig
+                item[0] -=zdvig
         return data
 
     def logical_down(self,data,zdvig=1):
-        for i in range(len(data)):
-            if data[i][1] == int(self.display[1]) - zdvig:
-                data[i][1] = 0
+        for item in data:
+            if item[1] + zdvig >= self.display[1]:
+                item[1] = item[1]+zdvig-self.display[1]
             else:
-                data[i][1] +=zdvig
+                item[1] +=zdvig
         return data
 
     def logical_right(self,data,zdvig=1):
-        for i in range(len(data)):
-            if data[i][0] == int(self.display[0]) - zdvig:
-                data[i][0] = 0
+        for item in data:
+            if item[0] + zdvig >= self.display[0]:
+                item[0] = item[0]+zdvig-self.display[0]
             else:
-                data[i][0] +=zdvig
+                item[0]+= zdvig
+        return data
+
+    
+    def up(self,data,zdvig=1):
+        for item in data:
+            item[1]-=zdvig
         return data
 
     def down(self,data,zdvig=1):
-        for i in range(len(data)):
-            data[i][1]+=zdvig
-        return data
-    
-    def up(self,data,zdvig=1):
-        for i in range(len(data)):
-            data[i][1]-=zdvig
+        for item in data:
+            item[1]+=zdvig
         return data
     
     def left(self,data,zdvig=1):
-        for i in range(len(data)):
-            data[i][0]-=zdvig
+        for item in data:
+            item[0]-=zdvig
         return data
     
     def right(self,data,zdvig=1):
-        for i in range(len(data)):
-            data[i][0]+=zdvig
+        for item in data:
+            item[0]+=zdvig
         return data
+
+
+    def border_up(self, data):
+        for item in data:
+            if item[1] == 0-1: return True
+        return False
+
+    def border_down(self, data):
+        for item in data:
+            if item[1] == self.display[1]: return True
+        return False
+
+    def border_left(self, data):
+        for item in data:
+            if item[0] == 0-1: return True
+        return False
+
+    def border_right(self, data):
+        for item in data:
+            if item[0] == self.display[0]: return True
+        return False
+
 
 Figure = Figure()
