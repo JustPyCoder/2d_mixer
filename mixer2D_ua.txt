@@ -109,7 +109,7 @@
 	cords = [[0,5],[1,5],[2,5],[3,5],[2,4],[2,6]]
 	
 	main_screen = Screen([16, 9],'::')
-	msl = Logics([16,9])
+	msl = Logics([[0,0],[16,9]])
 	main_screen.create_a_screen()
 	
 	while True:
@@ -130,7 +130,7 @@
 	from mixer2D import*
 
 	main_screen = Screen([16*3,9*3],' .')
-	msl = Logics([16*3,9*3])
+	msl = Logics([[0,0],[16*3,9*3]])
 	main_screen.create_a_screen()
 	
 	fig = Figure.new_filled([[5,5],[9,17],[25,25]]) # Це ми розглянемо в майбутньому 
@@ -174,7 +174,7 @@
 	----------
 
 	main_screen = Screen([16*3,9*3],' .')
-	msl = Logics([16*3,9*3])
+	msl = Logics([[0,0],[16*3,9*3]])
 	main_screen.create_a_screen()
 	
 	fig = Figure.new_filled([[5,5],[9,17],[25,25]]) # Це ми розглянемо в майбутньому 

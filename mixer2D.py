@@ -143,32 +143,32 @@ class Logics:
 
     def logical_up(self,data,zdvig=1):
         for item in data:
-            if item[1] - zdvig < 0 :
-                item[1] = item[1]-zdvig+self.display[1]
+            if item[1] - zdvig < self.display[0][1]:
+                item[1] = item[1]-zdvig+self.display[1][1]
             else:
                 item[1] -=zdvig
         return data
 
     def logical_left(self,data,zdvig=1):
         for item in data:
-            if item[0] - zdvig < 0:
-                item[0] = item[0]-zdvig+self.display[0]
+            if item[0] - zdvig < self.display[0][0]:
+                item[0] = item[0]-zdvig+self.display[1][0]
             else:
                 item[0] -=zdvig
         return data
 
     def logical_down(self,data,zdvig=1):
         for item in data:
-            if item[1] + zdvig >= self.display[1]:
-                item[1] = item[1]+zdvig-self.display[1]
+            if item[1] + zdvig >= self.display[1][1]:
+                item[1] = item[1]+zdvig-self.display[1][1]
             else:
                 item[1] +=zdvig
         return data
 
     def logical_right(self,data,zdvig=1):
         for item in data:
-            if item[0] + zdvig >= self.display[0]:
-                item[0] = item[0]+zdvig-self.display[0]
+            if item[0] + zdvig >= self.display[1][0]:
+                item[0] = item[0]+zdvig-self.display[1][0]
             else:
                 item[0]+= zdvig
         return data
@@ -197,22 +197,22 @@ class Logics:
 
     def border_up(self, data):
         for item in data:
-            if item[1] == 0-1: return True
+            if item[1] <= self.display[0][1]-1: return True
         return False
 
     def border_down(self, data):
         for item in data:
-            if item[1] == self.display[1]: return True
+            if item[1] >= self.display[1][1]: return True
         return False
 
     def border_left(self, data):
         for item in data:
-            if item[0] == 0-1: return True
+            if item[0] <= self.display[0][0]-1: return True
         return False
 
     def border_right(self, data):
         for item in data:
-            if item[0] == self.display[0]: return True
+            if item[0] >= self.display[1][0]: return True
         return False
 
 
